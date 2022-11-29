@@ -1,0 +1,19 @@
+version: '3'
+services:
+  docs:
+    image: swagger-docs
+    build: ./docs
+    networks:
+      - backend
+    ports: 
+      - "8080:8080"
+  api:
+    image: rest-api
+    build: .
+    networks:
+      - backend
+    ports:
+      - "5000:5000"
+networks:
+  backend:
+    driver: bridge

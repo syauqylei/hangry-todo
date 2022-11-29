@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true, 
+    "emitDecoratorMetadata": true,
+    "target": "es2016",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true,
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "inlineSourceMap": true
+  }
+}
