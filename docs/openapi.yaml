@@ -333,16 +333,17 @@ components:
       properties:
         status_code:
           type: integer
-          example: 201
         message:
           type: string
-          example: User <user-name> is succesfully registered
         error:
           type: string
+        data:
+          type: object
       example:
         status_code: 201
-        message: User <user-name> is succesfully registered
-        error: error
+        message: User <email> is succesfully registered
+        data: null
+        error: null
     SignInReq:
       type: object
       properties:

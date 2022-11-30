@@ -25,25 +25,25 @@ afterAll(async () => {
 });
 
 describe('Testing UserMode', () => {
-  it('should create user model',() => {
+  it('should create user model', () => {
     const johnDoe = new UserModel({ ...user });
     expect(johnDoe).toBeDefined();
   });
 
-  it('should store password as hashed password', async() => {
+  it('should store password as hashed password', async () => {
     const johnDoe = new UserModel({ ...user });
-    await johnDoe.save()
+    await johnDoe.save();
     const [createdUser] = await UserModel.find({ email: user.email }).exec();
     expect(createdUser.password).not.toEqual(user.password);
-  })
+  });
 
   it('should throw error when email is already exist', async () => {
     let error: unknown;
     try {
-      await UserModel.create([{...user}, {...user}])
+      await UserModel.create([{ ...user }, { ...user }]);
     } catch (err: unknown) {
       error = err;
     }
     expect(error).toBeDefined();
-  })
+  });
 });

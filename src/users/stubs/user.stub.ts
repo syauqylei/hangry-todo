@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import { AddUserDTO } from '../dtos/add.user.dto';
 
 export const userStub = (): AddUserDTO => {
@@ -8,3 +9,4 @@ export const userStub = (): AddUserDTO => {
     password: 'Abcde_12345',
   };
 };
+

@@ -14,12 +14,13 @@
     "lint:fix": "eslint ./src --ext .ts --fix",
     "prettier": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "gen:swagger": "rm -rf ./dummy-swagger && npx openapi-generator-cli generate -i ./docs/openapi.yaml -g nodejs-express-server --additional-properties=serverPort=8080 -o dummy-swagger",
-    "test": "jest"
+    "test": "jest --coverage --verbose false"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@curveball/http-errors": "^0.4.1",
     "@openapitools/openapi-generator-cli": "^2.5.2",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
@@ -36,6 +37,7 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@shelf/jest-mongodb": "^4.1.3",
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",

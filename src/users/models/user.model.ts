@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
 import { encryptPass } from '../utils/user.utils';
 
-interface IUser {
+export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
@@ -20,7 +20,7 @@ const userSchema = new Schema<IUser>({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
@@ -30,11 +30,11 @@ const userSchema = new Schema<IUser>({
 
 userSchema.pre('save', function (next) {
   if (!this.isModified) {
-    next()
+    next();
   }
-  this.password = encryptPass(this.password)
-  next()
-})
+  this.password = encryptPass(this.password);
+  next();
+});
 
 const UserModel = model<IUser>('User', userSchema);
 
