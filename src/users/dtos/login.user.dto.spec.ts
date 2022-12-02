@@ -1,6 +1,6 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { LoginUserStub } from '../stubs/login.user.stub';
+import { LoginUserStub } from '../stubs/user.login.stub';
 import { LoginUserDTO } from './login.user.dto';
 
 describe('Testing LoginUserDTO', () => {

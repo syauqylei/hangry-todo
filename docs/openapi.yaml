@@ -40,6 +40,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GeneralRes400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralRes500'
       x-swagger-router-controller: SignUp
   /sign-in:
     post:
@@ -66,6 +72,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GeneralRes400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralRes500'
+      x-swagger-router-controller: Authentication
+  /sign-out:
+    post:
+      tags:
+      - Authentication
+      summary: Use this to invalidate token
+      operationId: sign_outPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignOutReq'
+      responses:
+        "200":
+          description: Successfully invalidate token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignOutRes200'
+        "400":
+          description: Request is not correct
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralRes400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralRes500'
       x-swagger-router-controller: Authentication
   /todo:
     get:
@@ -96,6 +139,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GeneralRes400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralRes500'
       x-swagger-router-controller: Todo
     post:
       tags:
@@ -121,6 +170,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GeneralRes400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralRes500'
       x-swagger-router-controller: Todo
   /todo/{todo_id}/done:
     patch:
@@ -157,6 +212,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoRes404'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralRes500'
       x-swagger-router-controller: Todo
   /todo/{todo_id}/inprogress:
     patch:
@@ -193,6 +254,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoRes404'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralRes500'
       x-swagger-router-controller: Todo
   /todo/{todo_id}/todo:
     patch:
@@ -229,6 +296,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoRes404'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralRes500'
       x-swagger-router-controller: Todo
   /todo/{todo_id}:
     put:
@@ -271,6 +344,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoRes404'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralRes500'
       x-swagger-router-controller: Todo
     delete:
       tags:
@@ -306,6 +385,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoRes404'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralRes500'
       x-swagger-router-controller: Todo
 components:
   schemas:
@@ -331,7 +416,7 @@ components:
     SignUpRes201:
       type: object
       properties:
-        status_code:
+        statusCode:
           type: integer
         message:
           type: string
@@ -340,7 +425,7 @@ components:
         data:
           type: object
       example:
-        status_code: 201
+        statusCode: 201
         message: User <email> is succesfully registered
         data: null
         error: null
@@ -356,7 +441,7 @@ components:
     SignInRes200:
       type: object
       properties:
-        status_code:
+        statusCode:
           type: integer
           example: 200
         message:
@@ -368,10 +453,10 @@ components:
         error:
           type: string
       example:
-        status_code: 200
+        statusCode: 200
         data: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNmFjMDRkLWFlNWUtNDI5Ni1hNWEwLTE3Mjc4MGQxZWZkOCIsIm5hbWUiOiJqb2huIGRvZSIsImVtYWlsIjoiam9obiBkb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.R-lE8F-9yb5g4nbRKC0i_xrzu2ENwjIts0VjoUFWl7I
         message: <email> is successfully signed in
-        error: error
+        error: null
     TodoReq:
       type: object
       properties:
@@ -392,7 +477,7 @@ components:
     AddTodoRes201:
       type: object
       properties:
-        status_code:
+        statusCode:
           type: integer
           example: 201
         message:
@@ -403,14 +488,14 @@ components:
         error:
           type: string
       example:
-        status_code: 201
-        data: data
+        statusCode: 201
+        data: null
         message: Todo <todo-id> is successfully added
-        error: error
+        error: null
     EditTodoRes200:
       type: object
       properties:
-        status_code:
+        statusCode:
           type: integer
           example: 200
         message:
@@ -421,14 +506,14 @@ components:
         error:
           type: string
       example:
-        status_code: 200
-        data: data
+        statusCode: 200
+        data: null
         message: Todo <todo_id> is successfully edited
-        error: error
+        error: null
     DelTodoRes200:
       type: object
       properties:
-        status_code:
+        statusCode:
           type: integer
           example: 200
         message:
@@ -439,14 +524,14 @@ components:
         error:
           type: string
       example:
-        status_code: 200
-        data: data
+        statusCode: 200
+        data: null
         message: Todo <todo_id> is successfully deleted
-        error: error
+        error: null
     ListTodoRes200:
       type: object
       properties:
-        status_code:
+        statusCode:
           type: integer
           example: 200
         message:
@@ -459,7 +544,7 @@ components:
         error:
           type: string
       example:
-        status_code: 200
+        statusCode: 200
         data:
         - updated_at: 1669411163
           due_date: 1669411163
@@ -478,11 +563,11 @@ components:
           title: Research on Go Frameworks
           status: todo
         message: Todos is successfully retrieved
-        error: error
+        error: null
     TodoRes404:
       type: object
       properties:
-        status_code:
+        statusCode:
           type: integer
           example: 404
         message:
@@ -526,10 +611,31 @@ components:
         id: f6b9750b-ae78-40d5-9d20-a73178f594c2
         title: Research on Go Frameworks
         status: todo
+    SignOutReq:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNmFjMDRkLWFlNWUtNDI5Ni1hNWEwLTE3Mjc4MGQxZWZkOCIsIm5hbWUiOiJqb2huIGRvZSIsImVtYWlsIjoiam9obiBkb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.R-lE8F-9yb5g4nbRKC0i_xrzu2ENwjIts0VjoUFWl7I
+    SignOutRes200:
+      type: object
+      properties:
+        statusCode: 
+          type: integer
+          example: 200
+        message: 
+          type: string
+          example: 'User <email> token is successfully invalidated'
+        data:
+          type: object
+          example: null
+        error:
+          type: string
+          example: null
     GeneralRes400:
       type: object
       properties:
-        status_code:
+        statusCode:
           type: integer
           example: 400
         message:
@@ -537,3 +643,18 @@ components:
         error:
           type: string
           example: The request body is not correct.
+    GeneralRes500:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 500
+        message:
+          type: string
+          example:
+        error:
+          type: string
+          example: null
+        data:
+          type: object
+          example: null

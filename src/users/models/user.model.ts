@@ -6,6 +6,7 @@ export interface IUser {
   lastName: string;
   email: string;
   password: string;
+  invalidToken: string[];
 }
 
 const userSchema = new Schema<IUser>({
@@ -26,12 +27,14 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
+  invalidToken: [
+    {
+      type: String,
+    },
+  ],
 });
 
 userSchema.pre('save', function (next) {
-  if (!this.isModified) {
-    next();
-  }
   this.password = encryptPass(this.password);
   next();
 });

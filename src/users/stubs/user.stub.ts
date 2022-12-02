@@ -9,4 +9,3 @@ export const userStub = (): AddUserDTO => {
     password: 'Abcde_12345',
   };
 };
-

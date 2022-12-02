@@ -1,5 +1,6 @@
 /* eslint */
-import { IsEmail, Max, MaxLength, MinLength } from 'class-validator';
+import { IsEmail, Matches, Max, MaxLength, MinLength } from 'class-validator';
+import { PASSWORD_REGEX } from '../../common/constants';
 
 export class AddUserDTO {
   @IsEmail()
@@ -11,6 +12,6 @@ export class AddUserDTO {
   @MaxLength(20)
   lastName: string;
 
-  @MinLength(8)
+  @Matches(PASSWORD_REGEX)
   password: string;
 }

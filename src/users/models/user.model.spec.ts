@@ -2,7 +2,7 @@ import {
   closeTestDB,
   connectTestDB,
   dropTestDB,
-} from '../../utils/databaseTest';
+} from '../../common/databaseTest';
 import { AddUserDTO } from '../dtos/add.user.dto';
 import { userStub } from '../stubs/user.stub';
 import UserModel from './user.model';
