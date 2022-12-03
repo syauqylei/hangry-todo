@@ -24,7 +24,7 @@ afterAll(async () => {
   await closeTestDB();
 });
 
-describe('Testing UserMode', () => {
+describe('Testing UserModel', () => {
   it('should create user model', () => {
     const johnDoe = new UserModel({ ...user });
     expect(johnDoe).toBeDefined();
