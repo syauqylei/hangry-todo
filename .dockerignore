@@ -1,2 +1,6 @@
 docs
 dist
+dummy_swagger
+coverage
+.env
+.env.example

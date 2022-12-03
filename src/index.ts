@@ -6,7 +6,14 @@ import * as expressWinston from 'express-winston';
 import cors from 'cors';
 import { CommonRoutesConfig } from './common/common.routes.config';
 import debug from 'debug';
+import { UserRoutes } from './users/user.routes.config';
+import * as dotenv from 'dotenv';
+import connectDB from './config/database';
 
+if (!process.env.NODE_ENV) {
+  dotenv.config();
+}
+connectDB();
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
 const port = 5000;
@@ -35,6 +42,8 @@ app.use(
     ),
   }),
 );
+
+routes.push(new UserRoutes(app));
 
 app.get('/', (req: express.Request, res: express.Response) => {
   res.status(200).send(`Server running at http://localhost:${port}`);

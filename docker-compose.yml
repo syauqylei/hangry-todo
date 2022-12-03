@@ -8,12 +8,31 @@ services:
     ports: 
       - "8080:8080"
   api:
-    image: rest-api
+    image: hangry-todo-api
     build: .
     networks:
       - backend
     ports:
       - "5000:5000"
+    environment:
+      JWT_SECRET: W@hcSV8ZAIKgkuUz
+      MONGO_URI: mongodb://service_db/dev
+      NODE_ENV: PRODUCTION
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    container_name: service_db
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+    volumes:
+      - mongo_db:/data/db
 networks:
   backend:
     driver: bridge
+volumes:
+  mongo_db:

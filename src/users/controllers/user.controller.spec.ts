@@ -11,13 +11,12 @@ import { LogoutUserStub } from '../stubs/user.logout.stub';
 import { LogoutUserResStub } from '../stubs/user.logout.res.stub';
 
 jest.mock('../services/user.services');
-const mockService = UserService as jest.MockedClass<typeof UserService>;
+const mockService = UserService as jest.Mocked<typeof UserService>;
 
 describe('Testing UserController', () => {
   let mockRes: any;
   let mockReq: any;
   let mockNext: any;
-  let controller: UserController;
   let userData: AddUserDTO;
 
   beforeEach(() => {
@@ -29,97 +28,78 @@ describe('Testing UserController', () => {
     };
     mockReq = {};
     mockNext = jest.fn();
-    mockService.mockClear();
   });
 
   describe('Testing register', () => {
-    it('should call next when userServce throw an error', async () => {
-      controller = new UserController();
-      expect(UserService).toHaveBeenCalled();
+    beforeEach(() => {
+      mockService.addUser.mockReset();
+    });
 
+    it('should call next when userServce throw an error', async () => {
       mockReq.body = plainToClass(AddUserDTO, userData);
-      const mockInstaceService = mockService.mock.instances[0];
-      (mockInstaceService.addUser as jest.Mock).mockImplementation(() => {
+      mockService.addUser.mockImplementation(() => {
         throw new Error();
       });
 
-      await controller.register(mockReq, mockRes, mockNext);
+      await UserController.registerUser(mockReq, mockRes, mockNext);
       expect(mockNext).toHaveBeenCalled();
     });
 
     it('should call res to send response when addUser is success', async () => {
-      controller = new UserController();
-      expect(UserService).toHaveBeenCalled();
-
       mockReq.body = plainToClass(AddUserDTO, userData);
-      const mockInstaceService = mockService.mock.instances[0];
-      (mockInstaceService.addUser as jest.Mock).mockResolvedValue(
-        SignUpResStub(),
-      );
+      mockService.addUser.mockResolvedValue(SignUpResStub());
 
-      await controller.register(mockReq, mockRes, mockNext);
+      await UserController.registerUser(mockReq, mockRes, mockNext);
       expect(mockRes.status).toHaveBeenCalledWith(201);
       expect(mockRes.json).toHaveBeenCalledWith(SignUpResStub());
     });
   });
 
   describe('Testing login', () => {
-    it('should call next when userServce throw an error', async () => {
-      controller = new UserController();
-      expect(UserService).toHaveBeenCalled();
+    beforeEach(() => {
+      mockService.loginUser.mockReset();
+    });
 
+    it('should call next when userServce throw an error', async () => {
       mockReq.body = plainToClass(LoginUserDTO, userData);
-      const mockInstaceService = mockService.mock.instances[0];
-      (mockInstaceService.loginUser as jest.Mock).mockImplementation(() => {
+      mockService.loginUser.mockImplementation(() => {
         throw new Error();
       });
 
-      await controller.loginUser(mockReq, mockRes, mockNext);
+      await UserController.loginUser(mockReq, mockRes, mockNext);
       expect(mockNext).toHaveBeenCalled();
     });
 
     it('should call res to send response when addUser is success', async () => {
-      controller = new UserController();
-      expect(UserService).toHaveBeenCalled();
-
       mockReq.body = plainToClass(AddUserDTO, userData);
-      const mockInstaceService = mockService.mock.instances[0];
-      (mockInstaceService.loginUser as jest.Mock).mockResolvedValue(
-        LoginResStub(),
-      );
+      mockService.loginUser.mockResolvedValue(LoginResStub());
 
-      await controller.loginUser(mockReq, mockRes, mockNext);
+      await UserController.loginUser(mockReq, mockRes, mockNext);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith(LoginResStub());
     });
   });
 
   describe('Testing logout', () => {
-    it('should call next when userServce throw an error', async () => {
-      controller = new UserController();
-      expect(UserService).toHaveBeenCalled();
+    beforeEach(() => {
+      mockService.logoutUser.mockReset();
+    });
 
+    it('should call next when userServce throw an error', async () => {
       mockReq.body = plainToClass(LogoutUserDTO, LogoutUserStub());
-      const mockInstaceService = mockService.mock.instances[0];
-      (mockInstaceService.logoutUser as jest.Mock).mockImplementation(() => {
+      mockService.logoutUser.mockImplementation(() => {
         throw new Error();
       });
 
-      await controller.logoutUser(mockReq, mockRes, mockNext);
+      await UserController.logoutUser(mockReq, mockRes, mockNext);
       expect(mockNext).toHaveBeenCalled();
     });
 
     it('should call res to send response when logoutUSer is success', async () => {
-      controller = new UserController();
-      expect(UserService).toHaveBeenCalled();
-
       mockReq.body = plainToClass(LogoutUserDTO, LogoutUserStub());
-      const mockInstaceService = mockService.mock.instances[0];
-      (mockInstaceService.logoutUser as jest.Mock).mockResolvedValue(
-        LogoutUserResStub(),
-      );
+      mockService.logoutUser.mockResolvedValue(LogoutUserResStub());
 
-      await controller.logoutUser(mockReq, mockRes, mockNext);
+      await UserController.logoutUser(mockReq, mockRes, mockNext);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith(LogoutUserResStub());
     });

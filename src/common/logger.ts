@@ -1,6 +1,7 @@
 import * as winston from 'winston';
-
-import { isDevEnvironment } from './utils';
+const isDevEnvironment = () => {
+  return process.env.NODE_ENV || false;
+};
 
 const customLevels = {
   levels: {

@@ -13,7 +13,7 @@ import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { ValidationReqError } from '../../common/errors';
 
-export default class UserService {
+class UserService {
   async addUser(reqBody: any): Promise<ResponseDTO<null>> {
     const user = plainToClass(AddUserDTO, reqBody);
 
@@ -25,7 +25,12 @@ export default class UserService {
       );
     }
 
-    const existedUser = await UserModel.findOne({ email: user.email });
+    let existedUser;
+    try {
+      existedUser = await UserModel.findOne({ email: user.email });
+    } catch (err) {
+      throw new InternalServerError('Failed DB operation');
+    }
     if (existedUser) {
       throw new BadRequest('Email is already existed');
     }
@@ -55,8 +60,12 @@ export default class UserService {
         errs,
       );
     }
-
-    const user = await UserModel.findOne({ email: loginData.email });
+    let user;
+    try {
+      user = await UserModel.findOne({ email: loginData.email });
+    } catch (err) {
+      throw new InternalServerError('Failed DB operation');
+    }
     if (!user) {
       throw new BadRequest(`Email or password is not correct`);
     }
@@ -123,3 +132,5 @@ export default class UserService {
     return ret;
   }
 }
+
+export default new UserService();

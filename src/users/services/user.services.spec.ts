@@ -22,24 +22,24 @@ jest.mock('jsonwebtoken');
 jest.mock('../utils/user.utils');
 
 describe('Testing UserService', () => {
-  let userService: UserService;
-
-  beforeAll(() => {
-    userService = new UserService();
-  });
-
-  it('should be able to call new UserService', () => {
-    const userService = new UserService();
-    expect(userService).toBeTruthy();
-    expect(userService).toHaveProperty('addUser');
-    expect(userService).toHaveProperty('loginUser');
-  });
-
   describe('Testing addUser', () => {
     let user: AddUserDTO;
 
     beforeEach(() => {
       user = userStub();
+    });
+
+    it('should throw InternalServerError when failed findOne', async () => {
+      jest.spyOn(UserModel, 'findOne').mockImplementation(() => {
+        throw new Error();
+      });
+      let err;
+      try {
+        await UserService.addUser(user);
+      } catch (error) {
+        err = error;
+      }
+      expect(err).toBeInstanceOf(InternalServerError);
     });
 
     it('should throw validationError when request body is not valid format', async () => {
@@ -48,7 +48,7 @@ describe('Testing UserService', () => {
 
       let err;
       try {
-        await userService.addUser(user);
+        await UserService.addUser(user);
       } catch (error) {
         err = error;
       }
@@ -59,7 +59,7 @@ describe('Testing UserService', () => {
       jest.spyOn(UserModel, 'findOne').mockResolvedValue(user);
       let err;
       try {
-        await userService.addUser(user);
+        await UserService.addUser(user);
       } catch (e) {
         err = e;
         expect(err).toBeInstanceOf(BadRequest);
@@ -70,7 +70,7 @@ describe('Testing UserService', () => {
     it('should return Response data', async () => {
       jest.spyOn(UserModel, 'findOne').mockResolvedValue(undefined);
       jest.spyOn(UserModel, 'create').mockReturnValue();
-      const ret = await userService.addUser(user);
+      const ret = await UserService.addUser(user);
       expect(ret).toEqual(SignUpResStub());
     });
 
@@ -81,7 +81,7 @@ describe('Testing UserService', () => {
       });
       let err;
       try {
-        await userService.addUser(user);
+        await UserService.addUser(user);
       } catch (error) {
         err = error;
       }
@@ -102,13 +102,26 @@ describe('Testing UserService', () => {
       loginData = LoginUserStub();
     });
 
+    it('should throw InternalServerError when failed findOne', async () => {
+      jest.spyOn(UserModel, 'findOne').mockImplementation(() => {
+        throw new Error();
+      });
+      let err;
+      try {
+        await UserService.loginUser(loginData);
+      } catch (error) {
+        err = error;
+      }
+      expect(err).toBeInstanceOf(InternalServerError);
+    });
+
     it('should throw validationError when request body is not valid format', async () => {
       loginData.email = 'john.doe';
       loginData.password = 'aa11';
 
       let err;
       try {
-        await userService.loginUser(loginData);
+        await UserService.loginUser(loginData);
       } catch (error) {
         err = error;
       }
@@ -119,7 +132,7 @@ describe('Testing UserService', () => {
       jest.spyOn(UserModel, 'findOne').mockResolvedValue(undefined);
       let err;
       try {
-        const ret = await userService.loginUser(loginData);
+        const ret = await UserService.loginUser(loginData);
         expect(ret).toBeFalsy();
       } catch (error) {
         err = error;
@@ -133,7 +146,7 @@ describe('Testing UserService', () => {
 
       let err;
       try {
-        const ret = await userService.loginUser(loginData);
+        const ret = await UserService.loginUser(loginData);
         expect(ret).toBeFalsy();
       } catch (error) {
         err = error;
@@ -149,7 +162,7 @@ describe('Testing UserService', () => {
 
       mockedGenJWTToken.mockReturnValue(JWTTokenStub());
 
-      const ret = await userService.loginUser(loginData);
+      const ret = await UserService.loginUser(loginData);
       expect(ret).toStrictEqual(LoginResStub());
     });
   });
@@ -163,7 +176,7 @@ describe('Testing UserService', () => {
 
       let err;
       try {
-        await userService.logoutUser(logoutData);
+        await UserService.logoutUser(logoutData);
       } catch (error) {
         err = error;
       }
@@ -176,7 +189,7 @@ describe('Testing UserService', () => {
       });
       let err;
       try {
-        await userService.logoutUser(LogoutUserStub());
+        await UserService.logoutUser(LogoutUserStub());
       } catch (error) {
         err = error;
       }
@@ -190,7 +203,7 @@ describe('Testing UserService', () => {
       });
       let err;
       try {
-        await userService.logoutUser(LogoutUserStub());
+        await UserService.logoutUser(LogoutUserStub());
       } catch (error) {
         err = error;
       }
@@ -200,7 +213,7 @@ describe('Testing UserService', () => {
     it('should return Response data', async () => {
       mockJWT.verify.mockImplementation(() => JWTPayloadStubs());
       jest.spyOn(UserModel, 'findOneAndUpdate').mockResolvedValue(null);
-      const ret = await userService.logoutUser(LogoutUserStub());
+      const ret = await UserService.logoutUser(LogoutUserStub());
       expect(ret).toStrictEqual(LogoutUserResStub());
     });
   });

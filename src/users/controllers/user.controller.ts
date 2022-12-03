@@ -1,15 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import UserService from '../services/user.services';
 
-export default class UserController {
-  private readonly userService: UserService;
-  constructor() {
-    this.userService = new UserService();
-  }
-
-  async register(req: Request, res: Response, next: NextFunction) {
+class UserController {
+  async registerUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const ret = await this.userService.addUser(req.body);
+      const ret = await UserService.addUser(req.body);
       res.status(ret.statusCode).json(ret);
     } catch (err) {
       next(err);
@@ -18,7 +13,7 @@ export default class UserController {
 
   async loginUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const ret = await this.userService.loginUser(req.body);
+      const ret = await UserService.loginUser(req.body);
       res.status(ret.statusCode).json(ret);
     } catch (err) {
       next(err);
@@ -27,7 +22,7 @@ export default class UserController {
 
   async logoutUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const ret = await this.userService.logoutUser(req.body);
+      const ret = await UserService.logoutUser(req.body);
 
       res.status(ret.statusCode).json(ret);
     } catch (err) {
@@ -35,3 +30,5 @@ export default class UserController {
     }
   }
 }
+
+export default new UserController();
