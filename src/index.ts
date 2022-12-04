@@ -39,16 +39,16 @@ app.use(
 );
 
 const loggerOptions: expressWinston.LoggerOptions = {
-    transports: [new winston.transports.Console()],
-    format: winston.format.combine(
-        winston.format.json(),
-        winston.format.prettyPrint(),
-        winston.format.colorize({ all: true })
-    ),
+  transports: [new winston.transports.Console()],
+  format: winston.format.combine(
+    winston.format.json(),
+    winston.format.prettyPrint(),
+    winston.format.colorize({ all: true }),
+  ),
 };
 
 if (!process.env.DEBUG) {
-    loggerOptions.meta = false; // when not debugging, make terse
+  loggerOptions.meta = false; // when not debugging, make terse
 }
 
 app.use(expressWinston.logger(loggerOptions));

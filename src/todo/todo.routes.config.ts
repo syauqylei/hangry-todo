@@ -12,12 +12,7 @@ export class TodoRoutesConfig extends CommonRoutesConfig {
   configureRoutes() {
     this.router.post('/todo', auth, todoController.addTodo);
     this.router.get('/todo', auth, todoController.listTodos);
-    this.router.delete(
-      '/todo/:todoId',
-      auth,
-      authz,
-      todoController.deleteTodo,
-    );
+    this.router.delete('/todo/:todoId', auth, authz, todoController.deleteTodo);
     this.router.patch(
       '/todo/:todoId/:status',
       auth,

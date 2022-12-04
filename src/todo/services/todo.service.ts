@@ -15,7 +15,7 @@ import TodoModel from '../models/todo.model';
 
 class TodoService {
   async addTodo(reqBody: any): Promise<ResponseDTO<null>> {
-    const time = new Date(reqBody.dueDate)
+    const time = new Date(reqBody.dueDate);
     const todoData = plainToClass(AddTodoDTO, reqBody);
     const errs = await validate(todoData);
 

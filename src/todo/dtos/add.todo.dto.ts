@@ -1,6 +1,12 @@
 import 'reflect-metadata';
 import { Transform, Type } from 'class-transformer';
-import { IsDate, IsMongoId, IsNotEmpty, MaxLength, MinDate } from 'class-validator';
+import {
+  IsDate,
+  IsMongoId,
+  IsNotEmpty,
+  MaxLength,
+  MinDate,
+} from 'class-validator';
 
 export class AddTodoDTO {
   @MaxLength(90)
@@ -9,7 +15,7 @@ export class AddTodoDTO {
 
   @MinDate(new Date())
   @IsDate()
-  @Type( () => Date)
+  @Type(() => Date)
   dueDate: Date;
 
   description: string;
