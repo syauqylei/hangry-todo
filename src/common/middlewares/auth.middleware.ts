@@ -42,9 +42,8 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
           res.status(401).json(errorJSON);
         } else {
           req.session.user = user;
-          console.log(user)
+          console.log(user);
           next();
-
         }
       } catch (error) {
         errorJSON.message = 'Token verification failed';

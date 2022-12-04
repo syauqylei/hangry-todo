@@ -24,9 +24,7 @@ describe('Testing auth middleware', () => {
       params: {
         todoId: new mongo.ObjectId().toString(),
       },
-      session: {
-
-      }
+      session: {},
     };
     mockRes = {
       status: jest.fn().mockReturnThis(),
@@ -99,8 +97,8 @@ describe('Testing auth middleware', () => {
   it('should call next', async () => {
     const jwtPayload = JWTPayloadStubs() as JWTPayload;
     const user = {
-      _id: jwtPayload._id
-    }
+      _id: jwtPayload._id,
+    };
     mockJWT.verify.mockImplementation(() => jwtPayload);
     jest.spyOn(UserModel, 'findOne').mockResolvedValue(user);
 

@@ -1,8 +1,8 @@
-import { Application } from "express";
-import { CommonRoutesConfig } from "../common/common.routes.config";
-import { auth } from "../common/middlewares/auth.middleware";
-import todoController from "./controllers/todo.controller";
-import { authz } from "./middlewares/authz.middleware";
+import { Application } from 'express';
+import { CommonRoutesConfig } from '../common/common.routes.config';
+import { auth } from '../common/middlewares/auth.middleware';
+import todoController from './controllers/todo.controller';
+import { authz } from './middlewares/authz.middleware';
 
 export class TodoRoutesConfig extends CommonRoutesConfig {
   private readonly baseURL: string;
@@ -13,27 +13,19 @@ export class TodoRoutesConfig extends CommonRoutesConfig {
   }
 
   configureRoutes() {
-    this.router.post(
-      `${this.baseURL}/todo`,
-      auth,
-      todoController.addTodo
-    );
-    this.router.get(
-      `${this.baseURL}/todo`,
-      auth,
-      todoController.listTodos
-    );
+    this.router.post(`${this.baseURL}/todo`, auth, todoController.addTodo);
+    this.router.get(`${this.baseURL}/todo`, auth, todoController.listTodos);
     this.router.delete(
       `${this.baseURL}/todo/:todoId`,
       auth,
       authz,
-      todoController.deleteTodo
+      todoController.deleteTodo,
     );
     this.router.patch(
       `${this.baseURL}/todo/:todoId/:status`,
       auth,
       authz,
-      todoController.patchStatusTodo
+      todoController.patchStatusTodo,
     );
 
     return this.router;

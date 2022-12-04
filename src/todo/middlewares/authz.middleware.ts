@@ -32,15 +32,15 @@ export const authz = async (
         res.status(errorJson.statusCode).json(errorJson);
       } else {
         if (!user) {
-        errorJson.statusCode = 400;
-        errorJson.error = 'Bad Request';
-        errorJson.message = `Request session is not exist`;
-        res.status(errorJson.statusCode).json(errorJson);
-        } else if(todo.createdBy !== user._id) {
-        errorJson.statusCode = 403;
-        errorJson.error = 'Forbidden';
-        errorJson.message = `Unauthorized to edit this todo`;
-        res.status(errorJson.statusCode).json(errorJson);
+          errorJson.statusCode = 400;
+          errorJson.error = 'Bad Request';
+          errorJson.message = `Request session is not exist`;
+          res.status(errorJson.statusCode).json(errorJson);
+        } else if (todo.createdBy !== user._id) {
+          errorJson.statusCode = 403;
+          errorJson.error = 'Forbidden';
+          errorJson.message = `Unauthorized to edit this todo`;
+          res.status(errorJson.statusCode).json(errorJson);
         } else {
           next();
         }

@@ -99,7 +99,7 @@ describe('Testing Authz', () => {
 
   it('should send 400 when user is not found', async () => {
     const todo = TodoStubs()[0];
-    mockReq.session = {}
+    mockReq.session = {};
     jest.spyOn(TodoModel, 'findById').mockResolvedValue(todo);
     resStub.statusCode = 400;
     resStub.error = 'Bad Request';

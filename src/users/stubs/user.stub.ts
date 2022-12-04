@@ -1,4 +1,4 @@
-export const userStub = ()  => {
+export const userStub = () => {
   return {
     firstName: 'John',
     lastName: 'Doe',

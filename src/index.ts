@@ -29,12 +29,14 @@ const debugLog: debug.IDebugger = debug('app');
 
 app.use(bodyparser.json());
 app.use(cors());
-app.use(session({
-  secret: 'secret',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}))
+app.use(
+  session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
+  }),
+);
 app.use(
   expressWinston.logger({
     transports: [new winston.transports.Console()],
