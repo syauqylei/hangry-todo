@@ -53,13 +53,14 @@ npm run start
 you can access the documentation in `http://localhost:8080/api-docs/`
 
 or you can click here [documentation](./documentation/README.md)
+or you can import the file `./docs/openapi.yaml` through POSTMAN
 
 ### Testing
 This project was developed by using TDD workflow. This project structured as a file would be coupled with testfile `.spec.ts`. To check the testcases and coverage you can run command below.
 
 ```
 npm run test
-npm run test:cove
+npm run test:cov
 ```
 
 ### Caveat: during operation Create of todo
