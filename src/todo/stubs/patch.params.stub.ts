@@ -1,8 +1,8 @@
-import { mongo } from "mongoose"
+import { mongo } from 'mongoose';
 
 export const PatchParamStub = () => {
-  return  {
+  return {
     todoId: new mongo.ObjectId().toString(),
-    status: 'done'
-  }
-}
+    status: 'done',
+  };
+};

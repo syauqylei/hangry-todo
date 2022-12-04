@@ -1,8 +1,8 @@
-import { mongo } from "mongoose"
+import { mongo } from 'mongoose';
 
 export const FilterTodoStubs = () => {
   return {
-    assignee : (new mongo.ObjectId()).toString(),
-    page: 1
-  }
-}
+    assignee: new mongo.ObjectId().toString(),
+    page: 1,
+  };
+};

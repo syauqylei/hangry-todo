@@ -1,7 +1,7 @@
 import { HttpErrorBase, isHttpError } from '@curveball/http-errors/dist';
 import { classToPlain } from 'class-transformer';
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
-import { ResponseDTO } from './dtos/response.dto';
+import { ResponseDTO } from '../dtos/response.dto';
 
 export const errorHandler = (
   err: ErrorRequestHandler,

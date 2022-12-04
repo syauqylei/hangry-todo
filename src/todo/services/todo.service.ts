@@ -1,4 +1,8 @@
-import { BadRequest, InternalServerError, NotFound } from '@curveball/http-errors/dist';
+import {
+  BadRequest,
+  InternalServerError,
+  NotFound,
+} from '@curveball/http-errors/dist';
 import { plainToClass } from 'class-transformer';
 import { isMongoId, validate } from 'class-validator';
 import { Query } from 'mongoose';
@@ -34,94 +38,91 @@ class TodoService {
     return ret;
   }
 
-  async listTodos(reqQuery:any): Promise<ResponseDTO<any>> {
+  async listTodos(reqQuery: any): Promise<ResponseDTO<any>> {
     const req = plainToClass(FilterTodoDTO, reqQuery);
     const errs = await validate(req);
     if (errs.length > 0) {
-      throw new ValidationReqError(
-        'Query Param is not valid',
-        errs
-      );
+      throw new ValidationReqError('Query Param is not valid', errs);
     }
 
-    let query = {}
+    let query = {};
     if (req.assignee) {
       query = {
-        assignee: req.assignee
-      }
+        assignee: req.assignee,
+      };
     }
     let data;
     try {
-      data = await TodoModel.find(query)
-    } catch(err) {
-      throw new InternalServerError("Failed DB operation");
+      data = await TodoModel.find(query);
+    } catch (err) {
+      throw new InternalServerError('Failed DB operation');
     }
     const ret: ResponseDTO<any> = {
       statusCode: 200,
       message: 'Todo is successfully retrieved',
       data: data,
-      error: null
-    }
+      error: null,
+    };
     return ret;
   }
 
-  async deleteTodo(reqParams:any): Promise<ResponseDTO<null>> {
-    if(!reqParams.todoId) {
+  async deleteTodo(reqParams: any): Promise<ResponseDTO<null>> {
+    if (!reqParams.todoId) {
       throw new BadRequest('Request does not provide todoId');
     }
     const todoId = reqParams.todoId;
     if (!isMongoId(todoId)) {
-      throw new BadRequest('Request does not correct todoId')
+      throw new BadRequest('Request does not correct todoId');
     }
     let todo;
     try {
-      todo = await TodoModel.findByIdAndRemove(todoId)
+      todo = await TodoModel.findByIdAndRemove(todoId);
     } catch (err) {
-      throw new InternalServerError('Failed DB operation')
+      throw new InternalServerError('Failed DB operation');
     }
 
     if (!todo) {
-      throw new NotFound(`Todo ${todoId} is not found`)
+      throw new NotFound(`Todo ${todoId} is not found`);
     }
 
     const ret: ResponseDTO<null> = {
       message: `Todo ${todoId} is successfully deleted`,
       data: null,
       error: null,
-      statusCode: 200
-    }
+      statusCode: 200,
+    };
     return ret;
   }
 
   async patchStatusTodo(reqParams: any): Promise<ResponseDTO<null>> {
-    const req = plainToClass(PatchParamsDTO,reqParams);
-    const errs = await validate(req)
+    const req = plainToClass(PatchParamsDTO, reqParams);
+    const errs = await validate(req);
     if (errs.length > 0) {
-      throw new ValidationReqError('Request params is not valid format',errs)
+      throw new ValidationReqError('Request params is not valid format', errs);
     }
 
-    const todoId = req.todoId
+    const todoId = req.todoId;
     const status = req.status as StatusTodo;
 
     let todo;
     try {
       todo = await TodoModel.findByIdAndUpdate(todoId, {
-        status: status
+        status: status,
       });
-    } catch(error) {
+    } catch (error) {
       throw new InternalServerError('Failed DB operation');
     }
 
     if (!todo) {
-      throw new NotFound(`Todo ${todoId} is not found`)
-    } 
+      throw new NotFound(`Todo ${todoId} is not found`);
+    }
 
     const ret: ResponseDTO<null> = {
       message: `Todo ${todoId} is successfully updated`,
       statusCode: 200,
       error: null,
-      data: null
-    }
+      data: null,
+    };
     return ret;
   }
 }

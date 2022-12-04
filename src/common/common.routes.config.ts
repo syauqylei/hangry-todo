@@ -1,6 +1,6 @@
 import express from 'express';
 import { BASE_URL } from './constants';
-import { errorHandler } from './error.middleware';
+import { errorHandler } from './middlewares/error.middleware';
 
 export abstract class CommonRoutesConfig {
   app: express.Application;

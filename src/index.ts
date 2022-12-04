@@ -9,7 +9,14 @@ import debug from 'debug';
 import { UserRoutes } from './users/user.routes.config';
 import * as dotenv from 'dotenv';
 import connectDB from './config/database';
+import session from 'express-session';
+import { TodoRoutesConfig } from './todo/todo.routes.config';
 
+declare module 'express-session' {
+  export interface SessionData {
+    user: { [key: string]: any };
+  }
+}
 if (!process.env.NODE_ENV) {
   dotenv.config();
 }
@@ -22,7 +29,12 @@ const debugLog: debug.IDebugger = debug('app');
 
 app.use(bodyparser.json());
 app.use(cors());
-
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 app.use(
   expressWinston.logger({
     transports: [new winston.transports.Console()],
@@ -33,17 +45,8 @@ app.use(
   }),
 );
 
-app.use(
-  expressWinston.errorLogger({
-    transports: [new winston.transports.Console()],
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.json(),
-    ),
-  }),
-);
-
 routes.push(new UserRoutes(app));
+routes.push(new TodoRoutesConfig(app));
 
 app.get('/', (req: express.Request, res: express.Response) => {
   res.status(200).send(`Server running at http://localhost:${port}`);

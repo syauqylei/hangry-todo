@@ -47,7 +47,7 @@ describe('Testing TodoController', () => {
     let todos: any;
     beforeEach(() => {
       todos = TodoResStub();
-    })
+    });
     it('should call next when error occurs in service', async () => {
       mockService.listTodos.mockImplementation(() => {
         throw new Error();
@@ -60,9 +60,8 @@ describe('Testing TodoController', () => {
     it('should call res when service method is success', async () => {
       mockReq = {
         query: {
-          assignee:new mongo.ObjectId().toString()
-
-        }       
+          assignee: new mongo.ObjectId().toString(),
+        },
       };
       mockService.listTodos.mockResolvedValue(todos);
 
@@ -77,7 +76,7 @@ describe('Testing TodoController', () => {
     let res: any;
     beforeEach(() => {
       res = DeleteResStub();
-    })
+    });
 
     it('should call next when error occurs in service', async () => {
       mockService.deleteTodo.mockImplementation(() => {
@@ -92,12 +91,12 @@ describe('Testing TodoController', () => {
       mockReq = {
         params: {
           todoId: new mongo.ObjectId().toString(),
-        }
-      }
+        },
+      };
       mockService.deleteTodo.mockResolvedValue(res);
 
       await todoController.deleteTodo(mockReq, mockRes, mockNext);
-      expect(mockService.deleteTodo).toHaveBeenCalledWith(mockReq.params)
+      expect(mockService.deleteTodo).toHaveBeenCalledWith(mockReq.params);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith(res);
     });
@@ -107,7 +106,7 @@ describe('Testing TodoController', () => {
     let res: any;
     beforeEach(() => {
       res = PatchResStub();
-    })
+    });
 
     it('should call next when error occurs in service', async () => {
       mockService.patchStatusTodo.mockImplementation(() => {
@@ -122,13 +121,13 @@ describe('Testing TodoController', () => {
       mockReq = {
         params: {
           todoId: new mongo.ObjectId().toString(),
-          status: 'done'
-        }
-      }
+          status: 'done',
+        },
+      };
       mockService.patchStatusTodo.mockResolvedValue(res);
 
       await todoController.patchStatusTodo(mockReq, mockRes, mockNext);
-      expect(mockService.patchStatusTodo).toHaveBeenCalledWith(mockReq.params)
+      expect(mockService.patchStatusTodo).toHaveBeenCalledWith(mockReq.params);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith(res);
     });

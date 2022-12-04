@@ -1,7 +1,7 @@
-import { IsIn, IsMongoId } from "class-validator";
+import { IsIn, IsMongoId } from 'class-validator';
 
 export class PatchParamsDTO {
-  @IsIn(['todo','inprogress','done'])
+  @IsIn(['todo', 'inprogress', 'done'])
   status: string;
 
   @IsMongoId()

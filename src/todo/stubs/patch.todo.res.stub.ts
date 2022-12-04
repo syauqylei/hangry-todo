@@ -1,4 +1,4 @@
-import { mongo } from "mongoose"
+import { mongo } from 'mongoose';
 
 export const PatchResStub = () => {
   return {
@@ -6,5 +6,5 @@ export const PatchResStub = () => {
     statusCode: 200,
     error: null,
     data: null,
-  }
-}
+  };
+};
