@@ -8,6 +8,8 @@ COPY . .
 
 RUN npm i
 
+RUN npm run test:cov
+
 EXPOSE 5000
 
 CMD ["npm","run","start"]

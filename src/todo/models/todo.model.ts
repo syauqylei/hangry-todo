@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
 import UserModel from '../../users/models/user.model';
 
-interface ITodo {
+export interface ITodo {
   title: string;
   description: string;
   status: string;
