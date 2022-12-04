@@ -31,10 +31,18 @@ Then start the server using scripts that already provided.
 
 the server is run in `http://localhost:5000/`
 
+#### Docker-compose
+This project provides docker-compose.yml. Therefore, to set up this project would be easier using command below
+
+```
+docker-compose up
+```
+
+Consequently, your api-server and swagger-server is ready.
 
 ### Documentation
 
-Swagger documentation style is used in this project. To launch the documentation, you can run scripts provided in pa`package.json`.
+Swagger documentation style is used in this project. To launch the documentation, you can run scripts provided in `package.json`.
 
 ```
 npm run gen:swagger
@@ -45,3 +53,17 @@ npm run start
 you can access the documentation in `http://localhost:8080/api-docs/`
 
 or you can click here [documentation](./documentation/README.md)
+
+### Testing
+This project was developed by using TDD workflow. This project structured as a file would be coupled with testfile `.spec.ts`. To check the testcases and coverage you can run command below.
+
+```
+npm run test
+npm run test:cove
+```
+
+### Caveat: during operation Create of todo
+When using api POST /api/todo, you need to provide createdBy and assignee. These fields are a string of ObjectId of mongo. So for you to find out the userId, it's quite impossible using apis because this project does not provide GET /users to list user.
+
+The workaround is for you to register user first and then login to get the jwt token. Then decode it for yourself using jwt website [here](https://jwt.io/). So you get the `userId`, after that you can filled `createdBy` and `assignee` by this Id. To check Authorization middleware. you can just register multiple user and get the userId by doing exactly the same.
+
