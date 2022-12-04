@@ -7,6 +7,8 @@ These project has 2 component the api and the docs. The docs is build upon opena
 To lauch the server it uses nodejs 16. And you need a MongoDB running in the background. The easy way is to use docker.
 ```
 docker run -d -p 27017:27017 --name example-mongo -v mongo-data:/data/db -e MONGODB_INITDB_ROOT_USERNAME=example-user -e MONGODB_INITDB_ROOT_PASSWORD=example-pass mongo:latest ```
+
+
 please change accordingly the `MONGO_URI`.
 
 ```
