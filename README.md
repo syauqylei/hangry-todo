@@ -43,3 +43,5 @@ npm run start
 ```
 
 you can access the documentation in `http://localhost:8080/api-docs/`
+
+or you can click here [documentation](./documentation/README.md)
