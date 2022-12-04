@@ -310,7 +310,6 @@ describe('Testing TodoSerivce', () => {
         ret = await todoService.patchStatusTodo(reqParms);
       } catch (error) {
         err = error;
-        console.log(err);
       }
       expect(err).toBeInstanceOf(NotFound);
       expect(ret).toBeUndefined();

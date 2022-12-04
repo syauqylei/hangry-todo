@@ -1,693 +1,598 @@
 openapi: 3.0.3
 info:
-  contact:
-    email: syauqilenterano@gmail.com
-  description: An application to manage your daily tasks
-  title: Todo
-  version: 1.0.11
+    contact:
+        email: syauqilenterano@gmail.com
+    description: An application to manage your daily tasks
+    title: Todo
+    version: 1.0.11
 servers:
-- url: http://localhost:5000/api
+    - url: http://localhost:5000/api
 tags:
-- description: This API handles registration of the user
-  name: Sign Up
-- description: This API handles login and user token
-  name: Authentication
-- description: This API handles login and user token
-  name: Todo
+    - description: This API handles registration of the user
+      name: Sign Up
+    - description: This API handles login and user token
+      name: Authentication
+    - description: This API handles login and user token
+      name: Todo
 paths:
-  /register:
-    post:
-      operationId: sign_upPOST
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SignUpReq'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SignUpRes201'
-          description: Add user is successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes400'
-          description: Request is not correct
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes500'
-          description: Internal Server Error
-      summary: Add new user
-      tags:
-      - Sign Up
-      x-swagger-router-controller: SignUp
-      x-eov-operation-handler: controllers/SignUpController
-  /login:
-    post:
-      operationId: sign_inPOST
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SignInReq'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SignInRes200'
-          description: Sign in is successfully
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes400'
-          description: Request is not correct
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes500'
-          description: Internal Server Error
-      summary: Use this apis to sign in and refresh token
-      tags:
-      - Authentication
-      x-swagger-router-controller: Authentication
-      x-eov-operation-handler: controllers/AuthenticationController
-  /logout:
-    post:
-      operationId: sign_outPOST
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SignOutReq'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SignOutRes200'
-          description: Successfully invalidate token
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes400'
-          description: Request is not correct
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes500'
-          description: Internal Server Error
-      summary: Use this to invalidate token
-      tags:
-      - Authentication
-      x-swagger-router-controller: Authentication
-      x-eov-operation-handler: controllers/AuthenticationController
-  /todo:
-    get:
-      operationId: todoGET
-      parameters:
-      - explode: true
-        in: query
-        name: assignee
-        required: false
-        schema:
-          example: f6b9750b-ae78-40d5-9d20-a73178f594c2
-          format: uuid4
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListTodoRes200'
-          description: Successfully get all the todos
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes400'
-          description: Request is not correct
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes500'
-          description: Internal Server Error
-      summary: Use this api to list todos
-      tags:
-      - Todo
-      x-swagger-router-controller: Todo
-      x-eov-operation-handler: controllers/TodoController
-    post:
-      operationId: todoPOST
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TodoReq'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AddTodoRes201'
-          description: Add todo is succesful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes400'
-          description: Request is not correct
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes500'
-          description: Internal Server Error
-      summary: Use this api to add a todo
-      tags:
-      - Todo
-      x-swagger-router-controller: Todo
-      x-eov-operation-handler: controllers/TodoController
-  /todo/{todo_id}/done:
-    patch:
-      operationId: todoTodo_idDonePATCH
-      parameters:
-      - description: an id of todo with format of uuid4
-        explode: false
-        in: path
-        name: todo_id
-        required: true
-        schema:
-          format: uuid4
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EditTodoRes200'
-          description: Edit on todo <todo_id> is successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes400'
-          description: Request is not correct
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TodoRes404'
-          description: Todo id is not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes500'
-          description: Internal Server Error
-      summary: change todo status to done
-      tags:
-      - Todo
-      x-swagger-router-controller: Todo
-      x-eov-operation-handler: controllers/TodoController
-  /todo/{todo_id}/inprogress:
-    patch:
-      operationId: todoTodo_idInprogressPATCH
-      parameters:
-      - description: an id of todo with format of uuid4
-        explode: false
-        in: path
-        name: todo_id
-        required: true
-        schema:
-          format: uuid4
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EditTodoRes200'
-          description: Edit on todo <todo_id> is successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes400'
-          description: Request is not correct
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TodoRes404'
-          description: Todo id is not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes500'
-          description: Internal Server Error
-      summary: change todo status to done
-      tags:
-      - Todo
-      x-swagger-router-controller: Todo
-      x-eov-operation-handler: controllers/TodoController
-  /todo/{todo_id}/todo:
-    patch:
-      operationId: todoTodo_idTodoPATCH
-      parameters:
-      - description: an id of todo with format of uuid4
-        explode: false
-        in: path
-        name: todo_id
-        required: true
-        schema:
-          format: uuid4
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EditTodoRes200'
-          description: Edit on todo <todo_id> is successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes400'
-          description: Request is not correct
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TodoRes404'
-          description: Todo id is not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes500'
-          description: Internal Server Error
-      summary: change todo status to done
-      tags:
-      - Todo
-      x-swagger-router-controller: Todo
-      x-eov-operation-handler: controllers/TodoController
-  /todo/{todo_id}:
-    delete:
-      operationId: todoTodo_idDELETE
-      parameters:
-      - description: an id of todo with format of uuid4
-        explode: false
-        in: path
-        name: todo_id
-        required: true
-        schema:
-          format: uuid4
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DelTodoRes200'
-          description: Delete on todo <todo_id> is successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes400'
-          description: Request is not correct
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TodoRes404'
-          description: Todo id is not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes500'
-          description: Internal Server Error
-      summary: Use this api to delete a todo
-      tags:
-      - Todo
-      x-swagger-router-controller: Todo
-      x-eov-operation-handler: controllers/TodoController
-    put:
-      operationId: todoTodo_idPUT
-      parameters:
-      - description: an id of todo with format of uuid4
-        explode: false
-        in: path
-        name: todo_id
-        required: true
-        schema:
-          format: uuid4
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TodoReq'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EditTodoRes200'
-          description: Edit on todo <todo_id> is successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes400'
-          description: Request is not correct
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TodoRes404'
-          description: Todo id is not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralRes500'
-          description: Internal Server Error
-      summary: Use this api to edit a todo
-      tags:
-      - Todo
-      x-swagger-router-controller: Todo
-      x-eov-operation-handler: controllers/TodoController
+    /register:
+        post:
+            operationId: sign_upPOST
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/SignUpReq"
+                required: true
+            responses:
+                "201":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/SignUpRes201"
+                    description: Add user is successful
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes400"
+                    description: Request is not correct
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes500"
+                    description: Internal Server Error
+            summary: Add new user
+            tags:
+                - Sign Up
+            x-swagger-router-controller: SignUp
+            x-eov-operation-handler: controllers/SignUpController
+    /login:
+        post:
+            operationId: sign_inPOST
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/SignInReq"
+                required: true
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/SignInRes200"
+                    description: Sign in is successfully
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes400"
+                    description: Request is not correct
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes500"
+                    description: Internal Server Error
+            summary: Use this apis to sign in and refresh token
+            tags:
+                - Authentication
+            x-swagger-router-controller: Authentication
+            x-eov-operation-handler: controllers/AuthenticationController
+    /logout:
+        post:
+            operationId: sign_outPOST
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/SignOutReq"
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/SignOutRes200"
+                    description: Successfully invalidate token
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes400"
+                    description: Request is not correct
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes500"
+                    description: Internal Server Error
+            summary: Use this to invalidate token
+            tags:
+                - Authentication
+            x-swagger-router-controller: Authentication
+            x-eov-operation-handler: controllers/AuthenticationController
+    /todo:
+        get:
+            operationId: todoGET
+            parameters:
+                - explode: true
+                  in: query
+                  name: assignee
+                  required: false
+                  schema:
+                      example: 638ca851febc98437e09df2a
+                      format: mongoId
+                      type: string
+                  style: form
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ListTodoRes200"
+                    description: Successfully get all the todos
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes400"
+                    description: Request is not correct
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes500"
+                    description: Internal Server Error
+            summary: Use this api to list todos
+            tags:
+                - Todo
+            x-swagger-router-controller: Todo
+            x-eov-operation-handler: controllers/TodoController
+            security:
+                - bearerAuth: []
+        post:
+            operationId: todoPOST
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/TodoReq"
+                required: true
+            responses:
+                "201":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AddTodoRes201"
+                    description: Add todo is succesful
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes400"
+                    description: Request is not correct
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes500"
+                    description: Internal Server Error
+            summary: Use this api to add a todo
+            tags:
+                - Todo
+            x-swagger-router-controller: Todo
+            x-eov-operation-handler: controllers/TodoController
+            security:
+                - bearerAuth: []
+    /todo/{todo_id}/{status}:
+        patch:
+            operationId: todoTodo_idDonePATCH
+            parameters:
+                - description: an id of todo with format mongoId
+                  explode: false
+                  in: path
+                  name: todo_id
+                  required: true
+                  schema:
+                      format: mongoId
+                      type: string
+                      example: 638c2a82febc98437e09df1c
+                  style: simple
+                - description: desired status to change to
+                  explode: false
+                  in: path
+                  name: status
+                  required: true
+                  schema:
+                      type: string
+                      enum: [todo,inprogress,done]
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/EditTodoRes200"
+                    description: Edit on todo <todo_id> is successful
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes400"
+                    description: Request is not correct
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/TodoRes404"
+                    description: Todo id is not found
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes500"
+                    description: Internal Server Error
+            summary: change todo status to done
+            tags:
+                - Todo
+            x-swagger-router-controller: Todo
+            x-eov-operation-handler: controllers/TodoController
+            security:
+                - bearerAuth: []
+    /todo/{todoId}:
+        delete:
+            operationId: todoTodo_idDELETE
+            parameters:
+                - description: an id of todo with format of mongoId
+                  explode: false
+                  in: path
+                  name: todoId
+                  required: true
+                  schema:
+                      format: mongoId
+                      type: string
+                  style: simple
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/DelTodoRes200"
+                    description: Delete on todo <todo_id> is successful
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes400"
+                    description: Request is not correct
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/TodoRes404"
+                    description: Todo id is not found
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GeneralRes500"
+                    description: Internal Server Error
+            summary: Use this api to delete a todo
+            tags:
+                - Todo
+            x-swagger-router-controller: Todo
+            x-eov-operation-handler: controllers/TodoController
+            security:
+                - bearerAuth: []
 components:
-  schemas:
-    SignUpReq:
-      example:
-        firstName: John
-        lastName: Doe
-        password: Abcde_12345
-        email: john.doe@mail.com
-      properties:
-        firstName:
-          example: John
-          type: string
-        lastName:
-          example: Doe
-          type: string
-        email:
-          example: john.doe@mail.com
-          format: email
-          type: string
-        password:
-          example: Abcde_12345
-          type: string
-      required:
-      - email
-      - password
-      type: object
-    SignUpRes201:
-      example:
-        statusCode: 201
-        message: User <email> is succesfully registered
-        data: null
-        error: null
-      properties:
-        statusCode:
-          type: integer
-        message:
-          type: string
-        error:
-          type: string
-        data:
-          type: object
-      type: object
-    SignInReq:
-      example:
-        password: Abcde_12345
-        email: john.doe@mail.com
-      properties:
-        email:
-          example: john.doe@mail.com
-          type: string
-        password:
-          example: Abcde_12345
-          type: string
-      type: object
-    SignInRes200:
-      example:
-        statusCode: 200
-        data: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNmFjMDRkLWFlNWUtNDI5Ni1hNWEwLTE3Mjc4MGQxZWZkOCIsIm5hbWUiOiJqb2huIGRvZSIsImVtYWlsIjoiam9obiBkb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.R-lE8F-9yb5g4nbRKC0i_xrzu2ENwjIts0VjoUFWl7I
-        message: <email> is successfully signed in
-        error: null
-      properties:
-        statusCode:
-          example: 200
-          type: integer
-        message:
-          example: <email> is successfully signed in
-          type: string
-        data:
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNmFjMDRkLWFlNWUtNDI5Ni1hNWEwLTE3Mjc4MGQxZWZkOCIsIm5hbWUiOiJqb2huIGRvZSIsImVtYWlsIjoiam9obiBkb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.R-lE8F-9yb5g4nbRKC0i_xrzu2ENwjIts0VjoUFWl7I
-          type: string
-        error:
-          type: string
-      type: object
-    TodoReq:
-      example:
-        due_date: 1669551406
-        description: "There are few popular frameworks to build backend system using\
-          \ Go. For instances, gin, fiber etc. Please do comparative study about those\
-          \ frameworks."
-        assignee: f6b9750b-ae78-40d5-9d20-a73178f594c2
-        title: Research Go Backend framework
-      properties:
-        title:
-          example: Research Go Backend framework
-          type: string
-        description:
-          example: "There are few popular frameworks to build backend system using\
-            \ Go. For instances, gin, fiber etc. Please do comparative study about\
-            \ those frameworks."
-          type: string
-        due_date:
-          example: 1669551406
-          type: integer
-        assignee:
-          example: f6b9750b-ae78-40d5-9d20-a73178f594c2
-          type: string
-      type: object
-    AddTodoRes201:
-      example:
-        statusCode: 201
-        data: null
-        message: Todo <todo-id> is successfully added
-        error: null
-      properties:
-        statusCode:
-          example: 201
-          type: integer
-        message:
-          example: Todo <todo-id> is successfully added
-          type: string
-        data:
-          type: string
-        error:
-          type: string
-      type: object
-    EditTodoRes200:
-      example:
-        statusCode: 200
-        data: null
-        message: Todo <todo_id> is successfully edited
-        error: null
-      properties:
-        statusCode:
-          example: 200
-          type: integer
-        message:
-          example: Todo <todo_id> is successfully edited
-          type: string
-        data:
-          type: string
-        error:
-          type: string
-      type: object
-    DelTodoRes200:
-      example:
-        statusCode: 200
-        data: null
-        message: Todo <todo_id> is successfully deleted
-        error: null
-      properties:
-        statusCode:
-          example: 200
-          type: integer
-        message:
-          example: Todo <todo_id> is successfully deleted
-          type: string
-        data:
-          type: string
-        error:
-          type: string
-      type: object
-    ListTodoRes200:
-      example:
-        statusCode: 200
-        data:
-        - updated_at: 1669411163
-          due_date: 1669411163
-          description: There are few well known GO framework to build backend. Please
-            do comparative study.
-          created_at: 1669411163
-          id: f6b9750b-ae78-40d5-9d20-a73178f594c2
-          title: Research on Go Frameworks
-          status: todo
-        - updated_at: 1669411163
-          due_date: 1669411163
-          description: There are few well known GO framework to build backend. Please
-            do comparative study.
-          created_at: 1669411163
-          id: f6b9750b-ae78-40d5-9d20-a73178f594c2
-          title: Research on Go Frameworks
-          status: todo
-        message: Todos is successfully retrieved
-        error: null
-      properties:
-        statusCode:
-          example: 200
-          type: integer
-        message:
-          example: Todos is successfully retrieved
-          type: string
-        data:
-          items:
-            $ref: '#/components/schemas/Todo'
-          type: array
-        error:
-          type: string
-      type: object
-    TodoRes404:
-      properties:
-        statusCode:
-          example: 404
-          type: integer
-        message:
-          example: Todo <todo_id> is not found
-          type: string
-        data:
-          type: string
-        error:
-          type: string
-      type: object
-    Todo:
-      example:
-        updated_at: 1669411163
-        due_date: 1669411163
-        description: There are few well known GO framework to build backend. Please
-          do comparative study.
-        created_at: 1669411163
-        id: f6b9750b-ae78-40d5-9d20-a73178f594c2
-        title: Research on Go Frameworks
-        status: todo
-      properties:
-        id:
-          example: f6b9750b-ae78-40d5-9d20-a73178f594c2
-          type: string
-        title:
-          example: Research on Go Frameworks
-          type: string
-        description:
-          example: There are few well known GO framework to build backend. Please
-            do comparative study.
-          type: string
-        status:
-          example: todo
-          type: string
-        due_date:
-          example: 1669411163
-          type: integer
-        created_at:
-          example: 1669411163
-          type: integer
-        updated_at:
-          example: 1669411163
-          type: integer
-      type: object
-    SignOutReq:
-      example:
-        token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNmFjMDRkLWFlNWUtNDI5Ni1hNWEwLTE3Mjc4MGQxZWZkOCIsIm5hbWUiOiJqb2huIGRvZSIsImVtYWlsIjoiam9obiBkb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.R-lE8F-9yb5g4nbRKC0i_xrzu2ENwjIts0VjoUFWl7I
-      properties:
-        token:
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNmFjMDRkLWFlNWUtNDI5Ni1hNWEwLTE3Mjc4MGQxZWZkOCIsIm5hbWUiOiJqb2huIGRvZSIsImVtYWlsIjoiam9obiBkb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.R-lE8F-9yb5g4nbRKC0i_xrzu2ENwjIts0VjoUFWl7I
-          type: string
-      type: object
-    SignOutRes200:
-      example:
-        data: "{}"
-        message: User <email> token is successfully invalidated
-        error: error
-        statusCode: 200
-      properties:
-        statusCode:
-          example: 200
-          type: integer
-        message:
-          example: User <email> token is successfully invalidated
-          type: string
-        data:
-          type: object
-          example: null
-        error:
-          type: string
-          example: null
-      type: object
-    GeneralRes400:
-      properties:
-        statusCode:
-          example: 400
-          type: integer
-        message:
-          type: string
-        error:
-          example: The request body is not correct.
-          type: string
-      type: object
-    GeneralRes500:
-      properties:
-        statusCode:
-          example: 500
-          type: integer
-        message:
-          type: string
-          example: null
-        error:
-          type: string
-          example: null
-        data:
-          type: object
-          example: null
-      type: object
+    schemas:
+        SignUpReq:
+            example:
+                firstName: John
+                lastName: Doe
+                password: Abcde_12345
+                email: john.doe@mail.com
+            properties:
+                firstName:
+                    example: John
+                    type: string
+                lastName:
+                    example: Doe
+                    type: string
+                email:
+                    example: john.doe@mail.com
+                    format: email
+                    type: string
+                password:
+                    example: Abcde_12345
+                    type: string
+            required:
+                - email
+                - password
+            type: object
+        SignUpRes201:
+            example:
+                statusCode: 201
+                message: User <email> is succesfully registered
+                data: null
+                error: null
+            properties:
+                statusCode:
+                    type: integer
+                message:
+                    type: string
+                error:
+                    type: string
+                data:
+                    type: object
+            type: object
+        SignInReq:
+            example:
+                password: Abcde_12345
+                email: john.doe@mail.com
+            properties:
+                email:
+                    example: john.doe@mail.com
+                    type: string
+                password:
+                    example: Abcde_12345
+                    type: string
+            type: object
+        SignInRes200:
+            example:
+                statusCode: 200
+                data: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNmFjMDRkLWFlNWUtNDI5Ni1hNWEwLTE3Mjc4MGQxZWZkOCIsIm5hbWUiOiJqb2huIGRvZSIsImVtYWlsIjoiam9obiBkb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.R-lE8F-9yb5g4nbRKC0i_xrzu2ENwjIts0VjoUFWl7I
+                message: <email> is successfully signed in
+                error: null
+            properties:
+                statusCode:
+                    example: 200
+                    type: integer
+                message:
+                    example: <email> is successfully signed in
+                    type: string
+                data:
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNmFjMDRkLWFlNWUtNDI5Ni1hNWEwLTE3Mjc4MGQxZWZkOCIsIm5hbWUiOiJqb2huIGRvZSIsImVtYWlsIjoiam9obiBkb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.R-lE8F-9yb5g4nbRKC0i_xrzu2ENwjIts0VjoUFWl7I
+                    type: string
+                error:
+                    type: string
+            type: object
+        TodoReq:
+            example:
+                due_date: 1669551406
+                description:
+                    "There are few popular frameworks to build backend system using\
+                    \ Go. For instances, gin, fiber etc. Please do comparative study about those\
+                    \ frameworks."
+                assignee: 638ca851febc98437e09df2a
+                title: Research Go Backend framework
+            properties:
+                title:
+                    example: Research Go Backend framework
+                    type: string
+                description:
+                    example:
+                        "There are few popular frameworks to build backend system using\
+                        \ Go. For instances, gin, fiber etc. Please do comparative study about\
+                        \ those frameworks."
+                    type: string
+                due_date:
+                    example: "2022-12-04T15:31:35.195Z"
+                    type: string
+                assignee:
+                    example: 638ca851febc98437e09df2a
+                    type: string
+                createdBy:
+                    example: 638ca851febc98437e09df2a
+                    type: string
+            type: object
+        AddTodoRes201:
+            example:
+                statusCode: 201
+                data: null
+                message: Todo <todo-id> is successfully added
+                error: null
+            properties:
+                statusCode:
+                    example: 201
+                    type: integer
+                message:
+                    example: Todo <todo-id> is successfully added
+                    type: string
+                data:
+                    type: string
+                error:
+                    type: string
+            type: object
+        EditTodoRes200:
+            example:
+                statusCode: 200
+                data: null
+                message: Todo <todo_id> is successfully edited
+                error: null
+            properties:
+                statusCode:
+                    example: 200
+                    type: integer
+                message:
+                    example: Todo <todo_id> is successfully edited
+                    type: string
+                data:
+                    type: string
+                error:
+                    type: string
+            type: object
+        DelTodoRes200:
+            example:
+                statusCode: 200
+                data: null
+                message: Todo <todo_id> is successfully deleted
+                error: null
+            properties:
+                statusCode:
+                    example: 200
+                    type: integer
+                message:
+                    example: Todo <todo_id> is successfully deleted
+                    type: string
+                data:
+                    type: string
+                error:
+                    type: string
+            type: object
+        ListTodoRes200:
+            example:
+                statusCode: 200
+                data:
+                    - updated_at: "2022-12-04T15:31:35.195Z"
+                      due_date: "2022-12-04T15:31:35.195Z"
+                      description:
+                          There are few well known GO framework to build backend. Please
+                          do comparative study.
+                      created_at: "2022-12-04T15:31:35.195Z"
+                      id: 638ca851febc98437e09df2a
+                      title: Research on Go Frameworks
+                      status: todo
+                    - updated_at: "2022-12-04T15:31:35.195Z"
+                      due_date: "2022-12-04T15:31:35.195Z"
+                      description:
+                          There are few well known GO framework to build backend. Please
+                          do comparative study.
+                      created_at: "2022-12-04T15:31:35.195Z"
+                      assignee: 638ca851febc98437e09df2a
+                      createdBy: 638ca851febc98437e09df2a
+                      id: 638ca851febc98437e09df2a
+                      title: Research on Go Frameworks
+                      status: todo
+                message: Todos is successfully retrieved
+                error: null
+            properties:
+                statusCode:
+                    example: 200
+                    type: integer
+                message:
+                    example: Todos is successfully retrieved
+                    type: string
+                data:
+                    items:
+                        $ref: "#/components/schemas/Todo"
+                    type: array
+                error:
+                    type: string
+            type: object
+        TodoRes404:
+            properties:
+                statusCode:
+                    example: 404
+                    type: integer
+                message:
+                    example: Todo <todo_id> is not found
+                    type: string
+                data:
+                    type: string
+                error:
+                    type: string
+            type: object
+        Todo:
+            example:
+                updated_at: "2022-12-04T15:31:35.195Z"
+                due_date: "2022-12-04T15:31:35.195Z"
+                description:
+                    There are few well known GO framework to build backend. Please
+                    do comparative study.
+                created_at: "2022-12-04T15:31:35.195Z"
+                id: 638cbc6a86aa4509c94e4192
+                title: Research on Go Frameworks
+                status: todo
+            properties:
+                id:
+                    example: 638ca851febc98437e09df2a
+                    type: string
+                title:
+                    example: Research on Go Frameworks
+                    type: string
+                description:
+                    example:
+                        There are few well known GO framework to build backend. Please
+                        do comparative study.
+                    type: string
+                status:
+                    example: todo
+                    type: string
+                due_date:
+                    example: "2022-12-04T15:31:35.195Z"
+                    type: string
+                createdBy: 
+                    type: string
+                    example: 638ca851febc98437e09df2a
+                assignee: 
+                    type: string
+                    example: 638ca851febc98437e09df2a
+                created_at:
+                    example: "2022-12-04T15:31:35.195Z"
+                    type: string
+                updated_at:
+                    example: "2022-12-04T15:31:35.195Z"
+                    type: string
+            type: object
+        SignOutReq:
+            example:
+                token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNmFjMDRkLWFlNWUtNDI5Ni1hNWEwLTE3Mjc4MGQxZWZkOCIsIm5hbWUiOiJqb2huIGRvZSIsImVtYWlsIjoiam9obiBkb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.R-lE8F-9yb5g4nbRKC0i_xrzu2ENwjIts0VjoUFWl7I
+            properties:
+                token:
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNmFjMDRkLWFlNWUtNDI5Ni1hNWEwLTE3Mjc4MGQxZWZkOCIsIm5hbWUiOiJqb2huIGRvZSIsImVtYWlsIjoiam9obiBkb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.R-lE8F-9yb5g4nbRKC0i_xrzu2ENwjIts0VjoUFWl7I
+                    type: string
+            type: object
+        SignOutRes200:
+            example:
+                data: "{}"
+                message: User <email> token is successfully invalidated
+                error: error
+                statusCode: 200
+            properties:
+                statusCode:
+                    example: 200
+                    type: integer
+                message:
+                    example: User <email> token is successfully invalidated
+                    type: string
+                data:
+                    type: object
+                    example: null
+                error:
+                    type: string
+                    example: null
+            type: object
+        GeneralRes400:
+            properties:
+                statusCode:
+                    example: 400
+                    type: integer
+                message:
+                    type: string
+                error:
+                    example: The request body is not correct.
+                    type: string
+            type: object
+        GeneralRes500:
+            properties:
+                statusCode:
+                    example: 500
+                    type: integer
+                message:
+                    type: string
+                    example: null
+                error:
+                    type: string
+                    example: null
+                data:
+                    type: object
+                    example: null
+            type: object
+    securitySchemes:
+        bearerAuth:            # arbitrary name for the security scheme
+            type: http
+            scheme: bearer
+            bearerFormat: JWT 
 

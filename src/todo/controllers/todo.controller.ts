@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import todoService from '../services/todo.service';
+import debug from 'debug';
 
+const log: debug.IDebugger = debug('app:users-controller');
 class TodoController {
   async addTodo(req: Request, res: Response, next: NextFunction) {
     try {

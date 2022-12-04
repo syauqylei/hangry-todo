@@ -5,7 +5,6 @@ import {
 } from '@curveball/http-errors/dist';
 import { plainToClass } from 'class-transformer';
 import { isMongoId, validate } from 'class-validator';
-import { Query } from 'mongoose';
 import { ResponseDTO } from '../../common/dtos/response.dto';
 import { ValidationReqError } from '../../common/errors';
 import { AddTodoDTO } from '../dtos/add.todo.dto';
@@ -16,6 +15,7 @@ import TodoModel from '../models/todo.model';
 
 class TodoService {
   async addTodo(reqBody: any): Promise<ResponseDTO<null>> {
+    const time = new Date(reqBody.dueDate)
     const todoData = plainToClass(AddTodoDTO, reqBody);
     const errs = await validate(todoData);
 

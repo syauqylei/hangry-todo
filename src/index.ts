@@ -37,15 +37,21 @@ app.use(
     cookie: { secure: true },
   }),
 );
-app.use(
-  expressWinston.logger({
+
+const loggerOptions: expressWinston.LoggerOptions = {
     transports: [new winston.transports.Console()],
     format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.json(),
+        winston.format.json(),
+        winston.format.prettyPrint(),
+        winston.format.colorize({ all: true })
     ),
-  }),
-);
+};
+
+if (!process.env.DEBUG) {
+    loggerOptions.meta = false; // when not debugging, make terse
+}
+
+app.use(expressWinston.logger(loggerOptions));
 
 routes.push(new UserRoutes(app));
 routes.push(new TodoRoutesConfig(app));

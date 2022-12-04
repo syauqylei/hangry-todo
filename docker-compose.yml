@@ -18,6 +18,7 @@ services:
       JWT_SECRET: W@hcSV8ZAIKgkuUz
       MONGO_URI: mongodb://service_db/dev
       NODE_ENV: PRODUCTION
+      DEBUG: *
     links:
       - mongo
     depends_on:

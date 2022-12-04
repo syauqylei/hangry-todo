@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import UserService from '../services/user.services';
+import debug from 'debug';
 
+const log: debug.IDebugger = debug('app:users-controller');
 class UserController {
   async registerUser(req: Request, res: Response, next: NextFunction) {
     try {

@@ -36,7 +36,7 @@ export const authz = async (
           errorJson.error = 'Bad Request';
           errorJson.message = `Request session is not exist`;
           res.status(errorJson.statusCode).json(errorJson);
-        } else if (todo.createdBy !== user._id) {
+        } else if (todo.createdBy !== user._id.toString()) {
           errorJson.statusCode = 403;
           errorJson.error = 'Forbidden';
           errorJson.message = `Unauthorized to edit this todo`;
