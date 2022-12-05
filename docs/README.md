@@ -313,7 +313,7 @@ fetch('http://localhost:5000/api/todo',
   "data": [
     {
       "updatedAt": "2022-12-04T15:31:35.195Z",
-      "due_date": "2022-12-04T15:31:35.195Z",
+      "dueDate": "2022-12-04T15:31:35.195Z",
       "description": "There are few well known GO framework to build backend. Please do comparative study.",
       "createdAt": "2022-12-04T15:31:35.195Z",
       "id": "638ca851febc98437e09df2a",
@@ -322,7 +322,7 @@ fetch('http://localhost:5000/api/todo',
     },
     {
       "updatedAt": "2022-12-04T15:31:35.195Z",
-      "due_date": "2022-12-04T15:31:35.195Z",
+      "dueDate": "2022-12-04T15:31:35.195Z",
       "description": "There are few well known GO framework to build backend. Please do comparative study.",
       "createdAt": "2022-12-04T15:31:35.195Z",
       "assignee": "638ca851febc98437e09df2a",
@@ -790,7 +790,7 @@ bearerAuth
   "data": [
     {
       "updatedAt": "2022-12-04T15:31:35.195Z",
-      "due_date": "2022-12-04T15:31:35.195Z",
+      "dueDate": "2022-12-04T15:31:35.195Z",
       "description": "There are few well known GO framework to build backend. Please do comparative study.",
       "createdAt": "2022-12-04T15:31:35.195Z",
       "id": "638ca851febc98437e09df2a",
@@ -799,7 +799,7 @@ bearerAuth
     },
     {
       "updatedAt": "2022-12-04T15:31:35.195Z",
-      "due_date": "2022-12-04T15:31:35.195Z",
+      "dueDate": "2022-12-04T15:31:35.195Z",
       "description": "There are few well known GO framework to build backend. Please do comparative study.",
       "createdAt": "2022-12-04T15:31:35.195Z",
       "assignee": "638ca851febc98437e09df2a",
@@ -880,7 +880,7 @@ bearerAuth
 |title|string|false|none|none|
 |description|string|false|none|none|
 |status|string|false|none|none|
-|due_date|string|false|none|none|
+|dueDate|string|false|none|none|
 |createdBy|string|false|none|none|
 |assignee|string|false|none|none|
 |createdAt|string|false|none|none|

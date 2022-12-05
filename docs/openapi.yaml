@@ -440,7 +440,7 @@ components:
                 statusCode: 200
                 data:
                     - updatedAt: "2022-12-04T15:31:35.195Z"
-                      due_date: "2022-12-04T15:31:35.195Z"
+                      dueDate: "2022-12-04T15:31:35.195Z"
                       description:
                           There are few well known GO framework to build backend. Please
                           do comparative study.
@@ -449,7 +449,7 @@ components:
                       title: Research on Go Frameworks
                       status: todo
                     - updatedAt: "2022-12-04T15:31:35.195Z"
-                      due_date: "2022-12-04T15:31:35.195Z"
+                      dueDate: "2022-12-04T15:31:35.195Z"
                       description:
                           There are few well known GO framework to build backend. Please
                           do comparative study.
@@ -516,7 +516,7 @@ components:
                 status:
                     example: todo
                     type: string
-                due_date:
+                dueDate:
                     example: "2022-12-04T15:31:35.195Z"
                     type: string
                 createdBy: 
