@@ -313,6 +313,8 @@ fetch('http://localhost:5000/api/todo',
   "data": [
     {
       "updatedAt": "2022-12-04T15:31:35.195Z",
+      "assignee": "638cbc6a86aa4509c94e4191",
+      "createdBy": "638cbc6a86aa4509c94e4191",
       "dueDate": "2022-12-04T15:31:35.195Z",
       "description": "There are few well known GO framework to build backend. Please do comparative study.",
       "createdAt": "2022-12-04T15:31:35.195Z",
@@ -790,6 +792,8 @@ bearerAuth
   "data": [
     {
       "updatedAt": "2022-12-04T15:31:35.195Z",
+      "assignee": "638cbc6a86aa4509c94e4191",
+      "createdBy": "638cbc6a86aa4509c94e4191",
       "dueDate": "2022-12-04T15:31:35.195Z",
       "description": "There are few well known GO framework to build backend. Please do comparative study.",
       "createdAt": "2022-12-04T15:31:35.195Z",
