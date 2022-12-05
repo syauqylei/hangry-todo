@@ -360,31 +360,25 @@ components:
             type: object
         TodoReq:
             example:
-                due_date: 1669551406
+                dueDate: "2022-12-04T15:31:35.195Z"
                 description:
                     "There are few popular frameworks to build backend system using\
                     \ Go. For instances, gin, fiber etc. Please do comparative study about those\
                     \ frameworks."
                 assignee: 638ca851febc98437e09df2a
                 title: Research Go Backend framework
+                createdBy: 638ca851febc98437e09df2a
             properties:
                 title:
                     example: Research Go Backend framework
                     type: string
                 description:
-                    example:
-                        "There are few popular frameworks to build backend system using\
-                        \ Go. For instances, gin, fiber etc. Please do comparative study about\
-                        \ those frameworks."
                     type: string
-                due_date:
-                    example: "2022-12-04T15:31:35.195Z"
+                dueDate:
                     type: string
                 assignee:
-                    example: 638ca851febc98437e09df2a
                     type: string
                 createdBy:
-                    example: 638ca851febc98437e09df2a
                     type: string
             type: object
         AddTodoRes201:
@@ -497,12 +491,14 @@ components:
         Todo:
             example:
                 updated_at: "2022-12-04T15:31:35.195Z"
-                due_date: "2022-12-04T15:31:35.195Z"
+                dueDate: "2022-12-04T15:31:35.195Z"
                 description:
                     There are few well known GO framework to build backend. Please
                     do comparative study.
                 created_at: "2022-12-04T15:31:35.195Z"
                 id: 638cbc6a86aa4509c94e4192
+                assignee: 638cbc6a86aa4509c94e4191
+                createdBy: 638cbc6a86aa4509c94e4191
                 title: Research on Go Frameworks
                 status: todo
             properties:

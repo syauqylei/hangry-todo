@@ -358,10 +358,11 @@ bearerAuth
 
 ```javascript
 const inputBody = '{
-  "due_date": 1669551406,
+  "dueDate": "2022-12-04T15:31:35.195Z",
   "description": "There are few popular frameworks to build backend system using Go. For instances, gin, fiber etc. Please do comparative study about those frameworks.",
   "assignee": "638ca851febc98437e09df2a",
-  "title": "Research Go Backend framework"
+  "title": "Research Go Backend framework",
+  "createdBy": "638ca851febc98437e09df2a"
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -391,10 +392,11 @@ fetch('http://localhost:5000/api/todo',
 
 ```json
 {
-  "due_date": 1669551406,
+  "dueDate": "2022-12-04T15:31:35.195Z",
   "description": "There are few popular frameworks to build backend system using Go. For instances, gin, fiber etc. Please do comparative study about those frameworks.",
   "assignee": "638ca851febc98437e09df2a",
-  "title": "Research Go Backend framework"
+  "title": "Research Go Backend framework",
+  "createdBy": "638ca851febc98437e09df2a"
 }
 ```
 
@@ -678,10 +680,11 @@ bearerAuth
 
 ```json
 {
-  "due_date": 1669551406,
+  "dueDate": "2022-12-04T15:31:35.195Z",
   "description": "There are few popular frameworks to build backend system using Go. For instances, gin, fiber etc. Please do comparative study about those frameworks.",
   "assignee": "638ca851febc98437e09df2a",
-  "title": "Research Go Backend framework"
+  "title": "Research Go Backend framework",
+  "createdBy": "638ca851febc98437e09df2a"
 }
 
 ```
@@ -692,7 +695,7 @@ bearerAuth
 |---|---|---|---|---|
 |title|string|false|none|none|
 |description|string|false|none|none|
-|due_date|string|false|none|none|
+|dueDate|string|false|none|none|
 |assignee|string|false|none|none|
 |createdBy|string|false|none|none|
 
@@ -857,10 +860,12 @@ bearerAuth
 ```json
 {
   "updated_at": "2022-12-04T15:31:35.195Z",
-  "due_date": "2022-12-04T15:31:35.195Z",
+  "dueDate": "2022-12-04T15:31:35.195Z",
   "description": "There are few well known GO framework to build backend. Please do comparative study.",
   "created_at": "2022-12-04T15:31:35.195Z",
   "id": "638cbc6a86aa4509c94e4192",
+  "assignee": "638cbc6a86aa4509c94e4191",
+  "createdBy": "638cbc6a86aa4509c94e4191",
   "title": "Research on Go Frameworks",
   "status": "todo"
 }
