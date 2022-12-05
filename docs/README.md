@@ -312,19 +312,19 @@ fetch('http://localhost:5000/api/todo',
   "statusCode": 200,
   "data": [
     {
-      "updated_at": "2022-12-04T15:31:35.195Z",
+      "updatedAt": "2022-12-04T15:31:35.195Z",
       "due_date": "2022-12-04T15:31:35.195Z",
       "description": "There are few well known GO framework to build backend. Please do comparative study.",
-      "created_at": "2022-12-04T15:31:35.195Z",
+      "createdAt": "2022-12-04T15:31:35.195Z",
       "id": "638ca851febc98437e09df2a",
       "title": "Research on Go Frameworks",
       "status": "todo"
     },
     {
-      "updated_at": "2022-12-04T15:31:35.195Z",
+      "updatedAt": "2022-12-04T15:31:35.195Z",
       "due_date": "2022-12-04T15:31:35.195Z",
       "description": "There are few well known GO framework to build backend. Please do comparative study.",
-      "created_at": "2022-12-04T15:31:35.195Z",
+      "createdAt": "2022-12-04T15:31:35.195Z",
       "assignee": "638ca851febc98437e09df2a",
       "createdBy": "638ca851febc98437e09df2a",
       "id": "638ca851febc98437e09df2a",
@@ -789,19 +789,19 @@ bearerAuth
   "statusCode": 200,
   "data": [
     {
-      "updated_at": "2022-12-04T15:31:35.195Z",
+      "updatedAt": "2022-12-04T15:31:35.195Z",
       "due_date": "2022-12-04T15:31:35.195Z",
       "description": "There are few well known GO framework to build backend. Please do comparative study.",
-      "created_at": "2022-12-04T15:31:35.195Z",
+      "createdAt": "2022-12-04T15:31:35.195Z",
       "id": "638ca851febc98437e09df2a",
       "title": "Research on Go Frameworks",
       "status": "todo"
     },
     {
-      "updated_at": "2022-12-04T15:31:35.195Z",
+      "updatedAt": "2022-12-04T15:31:35.195Z",
       "due_date": "2022-12-04T15:31:35.195Z",
       "description": "There are few well known GO framework to build backend. Please do comparative study.",
-      "created_at": "2022-12-04T15:31:35.195Z",
+      "createdAt": "2022-12-04T15:31:35.195Z",
       "assignee": "638ca851febc98437e09df2a",
       "createdBy": "638ca851febc98437e09df2a",
       "id": "638ca851febc98437e09df2a",
@@ -859,10 +859,10 @@ bearerAuth
 
 ```json
 {
-  "updated_at": "2022-12-04T15:31:35.195Z",
+  "updatedAt": "2022-12-04T15:31:35.195Z",
   "dueDate": "2022-12-04T15:31:35.195Z",
   "description": "There are few well known GO framework to build backend. Please do comparative study.",
-  "created_at": "2022-12-04T15:31:35.195Z",
+  "createdAt": "2022-12-04T15:31:35.195Z",
   "id": "638cbc6a86aa4509c94e4192",
   "assignee": "638cbc6a86aa4509c94e4191",
   "createdBy": "638cbc6a86aa4509c94e4191",
@@ -883,8 +883,8 @@ bearerAuth
 |due_date|string|false|none|none|
 |createdBy|string|false|none|none|
 |assignee|string|false|none|none|
-|created_at|string|false|none|none|
-|updated_at|string|false|none|none|
+|createdAt|string|false|none|none|
+|updatedAt|string|false|none|none|
 
 <h2 id="tocS_SignOutReq">SignOutReq</h2>
 <!-- backwards compatibility -->
